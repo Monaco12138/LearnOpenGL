@@ -80,6 +80,7 @@ int main()
 
     // fragment shader
     // 这一段声明一个片段着色器
+    //
     unsigned int fragmentShader = glCreateShader(GL_FRAGMENT_SHADER);
     glShaderSource(fragmentShader, 1, &fragmentShaderSource, NULL);
     glCompileShader(fragmentShader);

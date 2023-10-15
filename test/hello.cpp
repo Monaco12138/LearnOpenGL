@@ -39,6 +39,8 @@ int main()
         return -1;
     }
     glfwMakeContextCurrent(window);
+
+    // 每当窗口调整大小时调用这个函数
     glfwSetFramebufferSizeCallback(window, framebuffer_size_callback);
 
     // glad: load all OpenGL function pointers
@@ -51,6 +53,7 @@ int main()
     }    
 
     // render loop
+    // 渲染循环
     // -----------
     while (!glfwWindowShouldClose(window))
     {
@@ -58,7 +61,16 @@ int main()
         // -----
         processInput(window);
 
+        // 渲染指令
+        //...
+        //
+        // render
+        // ------
+        glClearColor(0.2f, 0.3f, 0.3f, 1.0f);
+        glClear(GL_COLOR_BUFFER_BIT);
+
         // glfw: swap buffers and poll IO events (keys pressed/released, mouse moved etc.)
+        //// 检查并调用事件，交换缓冲
         // -------------------------------------------------------------------------------
         glfwSwapBuffers(window);
         glfwPollEvents();
@@ -85,5 +97,5 @@ void framebuffer_size_callback(GLFWwindow* window, int width, int height)
     // make sure the viewport matches the new window dimensions; note that width and 
     // height will be significantly larger than specified on retina displays.
     // 视口（Viewport）坐标
-    glViewport(0, 0, width, height);
+    glViewport(0, 0, SCR_WIDTH, SCR_HEIGHT);
 }

@@ -2,6 +2,7 @@
 #include <GLFW/glfw3.h>
 #include "shader_s.h"
 #include <iostream>
+#include <cmath>
 
 void framebuffer_size_callback(GLFWwindow* window, int width, int height);
 void processInput(GLFWwindow *window);
@@ -47,15 +48,15 @@ int main()
     }
 
 
-    Shader myShader("/home/netlab/main/LearnOpenGL/test/shader.vs", "/home/netlab/main/LearnOpenGL/test/shader.fs");
+    Shader myShader("/home/netlab/main/LearnOpenGL/test/shader_vs", "/home/netlab/main/LearnOpenGL/test/shader_fs");
     // set up vertex data (and buffer(s)) and configure vertex attributes
     // ------------------------------------------------------------------
     float vertices[] = {
-        0.5f, 0.5f, 0.0f,  //v0
+        0.0f, 0.5f, 0.0f,  //v0
         1.0f, 0.0f, 0.0f,  //c0
-        0.0f, 0.0f, 0.0f,  //v1
+        0.5f, -0.5f, 0.0f,  //v1
         0.0f, 1.0f, 0.0f, //c1
-        -0.5f, 0.5f, 0.0f, //v2
+        -0.5f, -0.5f, 0.0f, //v2
         0.0f, 0.0f, 1.0f //c2
     }; 
 
@@ -110,6 +111,14 @@ int main()
 
         // draw our first triangle
         myShader.use();
+
+        double  timeValue = glfwGetTime();
+        float xOffset = static_cast<float>(sin(timeValue) / 2.0 + 0.5);
+        float yOffset = static_cast<float>(cos(timeValue) / 2.0 + 0.5);
+        //float offset = 1.0f;
+        myShader.setFloat("xOffset", xOffset);
+        myShader.setFloat("yOffset", yOffset);
+
         glBindVertexArray(VAO); // seeing as we only have a single VAO there's no need to bind it every time, but we'll do so to keep things a bit more organized
         glDrawArrays(GL_TRIANGLES, 0, 3);
         glBindVertexArray(0); // no need to unbind it every time 

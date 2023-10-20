@@ -149,7 +149,7 @@ int main()
     glBufferData(GL_ELEMENT_ARRAY_BUFFER, sizeof(indices), indices, GL_STATIC_DRAW);
 
     // 一个顶点可能有很多属性，position, color, text等等，每个属性对应一个索引
-    // (属性索引， 属性长度， 数据类型，... )
+    //解析顶点数据 (属性索引， 属性长度， 数据类型，... )
     glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 3 * sizeof(float), (void*)0);
     glEnableVertexAttribArray(0);
 

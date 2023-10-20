@@ -96,6 +96,7 @@ int main()
     // load and create a texture 
     // -------------------------
     unsigned int texture1, texture2;
+    stbi_set_flip_vertically_on_load(true);
     // texture 1
     // ---------
     set_texture(&texture1, "/home/netlab/main/LearnOpenGL/resources/textures/container.jpg", GL_RGB);
@@ -130,14 +131,22 @@ int main()
         glBindTexture(GL_TEXTURE_2D, texture2);
 
         // create transformations
-        glm::mat4 transform = glm::mat4(1.0f); // make sure to initialize matrix to identity matrix first
-        transform = glm::translate(transform, glm::vec3(0.5f, -0.5f, 0.0f));
-        transform = glm::rotate(transform, (float)glfwGetTime(), glm::vec3(0.0f, 0.0f, 1.0f));
+        glm::mat4 model = glm::mat4(1.0f);
+        glm::mat4 view = glm::mat4(1.0f);
+        glm::mat4 projection = glm::mat4(1.0f);
+        model = glm::rotate(model, glm::radians(-55.0f), glm::vec3(1.0f, 0.0f, 0.0f));
+        view  = glm::translate(view, glm::vec3(0.0f, 0.0f, -4.0f));
+        projection = glm::perspective(glm::radians(45.0f), (float)SCR_WIDTH / (float)SCR_HEIGHT, 0.1f, 100.0f);
 
+
+        //pass them to the shaders
+        myShader.setMat4("model", model);
+        myShader.setMat4("view", view);
+        myShader.setMat4("projection", projection);
+
+        // retrieve the matrix uniform locations
         // get matrix's uniform location and set matrix
         myShader.use();
-        unsigned int transformLoc = glGetUniformLocation(myShader.ID, "transform");
-        glUniformMatrix4fv(transformLoc, 1, GL_FALSE, glm::value_ptr(transform));
 
         // render container
         glBindVertexArray(VAO);

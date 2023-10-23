@@ -13,6 +13,6 @@ target_include_directories(stb_image PUBLIC "/home/netlab/main/LearnOpenGL/inclu
 
 set (CMAKE_CXX_LINK_EXECUTABLE "${CMAKE_CXX_LINK_EXECUTABLE} -ldl")
 
-add_executable(hello_trans hello_trans.cpp)
+add_executable(hello_move hello_move.cpp)
 
-target_link_libraries(hello_trans glfw ${GL_LIBRARY} glad stb_image)
+target_link_libraries(hello_move glfw ${GL_LIBRARY} glad stb_image)
